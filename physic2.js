@@ -261,6 +261,7 @@ shot.addEventListener('touchstart', (event) => {
   event.preventDefault();
   
   audio.play();
+  audio.currentTime = 0;
   
   if (!bulletCheck) {
   // получаем метрики прицела, вычисляем координаты траектории для пули
