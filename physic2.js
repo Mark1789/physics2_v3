@@ -6,6 +6,7 @@ let stick = document.querySelector('.stick');
 let shot = document.querySelector('.shot');
 let score = document.querySelector('.score');
 let audio = document.querySelector('.audio');
+let time = document.querySelector('.time');
 hero.style.left = area.offsetWidth/2 - hero.offsetWidth/2 + 'px';
 hero.style.top = area.offsetHeight/2 - hero.offsetHeight/2 + 'px';
 let areaCoords = area.getBoundingClientRect();
@@ -21,6 +22,10 @@ let dx;
 let dy;
 let allEnemy;
 let speedEnemy = 1;
+// таймер по истечению которого увеличивается скорость врагов
+let timer = 50;
+// i служит индексом для работы с каждым врагом в процессе
+  let i = 0;
 
 let heroObj = {
   x: area.offsetWidth/2 - hero.offsetWidth/2,
@@ -58,6 +63,9 @@ let enemyObj = {
   enemy.classList.add('enemy');
   enemy.style.left = x + 'px';
   enemy.style.top = y + 'px';
+  if (turbo > 1) {
+    enemy.style.background = 'red';
+  }
   // нестандартный атрибут data передает скорость врага
   enemy.setAttribute('data-speed', speedEnemy*turbo);
   area.insertAdjacentElement('beforeend', enemy);
@@ -73,7 +81,7 @@ function random () {
     return random();
   }
   if (Math.abs(x - heroObj.x) > 100) {
-    turbo = 5;
+    turbo = 4;
   }
   return [x, y, turbo];
 }
@@ -86,8 +94,6 @@ for (let i = 0; i < 3; i += 1) {
   enemyMovings.push([xy[0], xy[1]])
 }
 
-// i служит индексом для работы с каждым врагом в процессе
-  let i = 0;
 function enemyMove (x, y, el) {
     enemyMovings[i][0] += x*el.dataset.speed;
     enemyMovings[i][1] += y*el.dataset.speed;
@@ -212,6 +218,8 @@ process = setInterval(() => {
       el.remove();
       bulletCheck = false;
       bullet.remove();
+      bulletX = 0;
+      bulletY = 0;
       enemyMovings.splice(i, 1);
       
       let coords = random();
@@ -225,7 +233,7 @@ process = setInterval(() => {
     // проверка на столкновение с героем
     if (calculateDiagonal(metr.x, metr.y, heroObj.x, heroObj.y) < 33) {
         clearInterval(process);
-      alert('fail');
+      alert(`Fail. Result: ${score.innerHTML}`);
       location.reload();
     }
   }
@@ -235,7 +243,14 @@ process = setInterval(() => {
   if (bulletCheck) {
      skyBullet (bulletDirectoryX, bulletDirectoryY);
   }
-}, )
+  
+  timer -= 0.01
+  time.innerHTML = timer.toFixed(0);
+  if (timer <= 0) {
+    speedEnemy += 0.2;
+    timer = 50;
+  }
+}, 0)
 
 // events listener
   stick.addEventListener('touchmove', (event) => {
@@ -263,16 +278,15 @@ shot.addEventListener('touchstart', (event) => {
   if (!bulletCheck) {
     audio.play();
     audio.currentTime = 0;
-    
   // получаем метрики прицела, вычисляем координаты траектории для пули
-  let aimCoords = aim.getBoundingClientRect();
+    let aimCoords = aim.getBoundingClientRect();
      [bulletDx, bulletDy] = fromCenterMove (aimCoords.x, aimCoords.y, heroObj.x+10, heroObj.y+10);
   
   // сохраняем полученные координаты траектории пули в отдельных переменных для того, чтобы траектория не менялась при перемещении героя
-  bulletDirectoryX = bulletDx;
-  bulletDirectoryY = bulletDy;
+    bulletDirectoryX = bulletDx;
+    bulletDirectoryY = bulletDy;
   
-  bulletCheck = true;
-  createBullet();
+    bulletCheck = true;
+    createBullet();
   }
 })
