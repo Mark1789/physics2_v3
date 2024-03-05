@@ -293,4 +293,17 @@ shot.addEventListener('touchstart', (event) => {
 
 document.addEventListener('touchmove', function(event) {
     event.preventDefault();
+    console.log('doc');
+})
+control.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    console.log('control');
+})
+document.documentElement.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    console.log('documentElement');
+})
+document.body.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    console.log('body');
 })
