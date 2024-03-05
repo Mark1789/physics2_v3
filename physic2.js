@@ -297,7 +297,7 @@ control.addEventListener('touchmove', function(event) {
     event.preventDefault();
     let touch = event.targetTouches[0];
 })
-
+/*
 document.addEventListener('touchmove', function(event) {
     event.preventDefault();
      let touch = event.targetTouches[0];
@@ -311,3 +311,4 @@ document.body.addEventListener('touchmove', function(event) {
     event.preventDefault();
   let touch = event.targetTouches[0];
 })
+*/
