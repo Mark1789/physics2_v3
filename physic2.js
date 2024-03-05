@@ -260,10 +260,10 @@ stick.addEventListener('touchend', (event) => {
 shot.addEventListener('touchstart', (event) => {
   event.preventDefault();
   
-  audio.play();
-  audio.currentTime = 0;
-  
   if (!bulletCheck) {
+    audio.play();
+    audio.currentTime = 0;
+    
   // получаем метрики прицела, вычисляем координаты траектории для пули
   let aimCoords = aim.getBoundingClientRect();
      [bulletDx, bulletDy] = fromCenterMove (aimCoords.x, aimCoords.y, heroObj.x+10, heroObj.y+10);
