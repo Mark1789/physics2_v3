@@ -49,7 +49,7 @@ body {
   align-items: center;
   width: 140px;
   height: 140px;
-  background: lightgrey;
+  background: #404040;
   border-radius: 50%;
 }
 table {
@@ -90,15 +90,17 @@ table {
   align-items: center;
   width: 90px;
   height: 90px;
-  background: lightgray;
+  background: #404040;
   border-radius: 50%;
   user-select: none;
 }
-.scoreX {
-  display: flex;
+.calculateBlock {
   flex: 2 1 100px;
-  justify-content: center;
   user-select: none;
+  text-align: center;
+}
+p {
+  margin: 0px;
 }
 .bullet {
   position: fixed;
@@ -112,4 +114,4 @@ table {
   height: 40px;
   background: orange;
   border-radius: 50px;
-}
+  }
