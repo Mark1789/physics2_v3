@@ -290,3 +290,7 @@ shot.addEventListener('touchstart', (event) => {
     createBullet();
   }
 })
+
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+})
