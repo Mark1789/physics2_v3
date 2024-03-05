@@ -7,6 +7,7 @@ let shot = document.querySelector('.shot');
 let score = document.querySelector('.score');
 let audio = document.querySelector('.audio');
 let time = document.querySelector('.time');
+let control = document.querySelector('.controll');
 hero.style.left = area.offsetWidth/2 - hero.offsetWidth/2 + 'px';
 hero.style.top = area.offsetHeight/2 - hero.offsetHeight/2 + 'px';
 let areaCoords = area.getBoundingClientRect();
@@ -291,19 +292,22 @@ shot.addEventListener('touchstart', (event) => {
   }
 })
 
-document.addEventListener('touchmove', function(event) {
-    event.preventDefault();
-    
-})
+
 control.addEventListener('touchmove', function(event) {
     event.preventDefault();
-  
+    let touch = event.targetTouches[0];
 })
+
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+     let touch = event.targetTouches[0];
+})
+
 document.documentElement.addEventListener('touchmove', function(event) {
     event.preventDefault();
-    
+    let touch = event.targetTouches[0];
 })
 document.body.addEventListener('touchmove', function(event) {
     event.preventDefault();
-  
+  let touch = event.targetTouches[0];
 })
